@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+const fs = require("fs");
+const generateHTML = `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -22,4 +23,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script src="../src/generateEmployeeCard.js"></script>
     </body>
-    </html>
+    </html>`;
+
+const createHTML = () => {
+	fs.writeFile("./dist/index.html", generateHTML, (err) =>
+		err ? console.log(err) : console.log("Successfully created index.html!")
+	);
+}
+
+module.exports = { createHTML };

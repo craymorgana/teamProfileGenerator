@@ -1,41 +1,13 @@
 const inquirer = require("inquirer");
-const fs = require("fs");
+
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-
-//test
+const generateHTML = require("./src/generateHTML.js");
+const generateEmployeeCard = require("./src/generateEmployeeCard");
 
 let employees = [];
-
-const generateHTML = ({}) =>
-	`<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" href="style.css">
-      <title>My Team</title>
-    </head>
-    <body>
-
-    <header>
-        <h1 class="">My Team</h1>
-    </header>
-
-    <main>
-    <div class="card">
-
-    </div>
-
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="../index.js"></script>
-	<script src="../src/card.js"></script>
-    </body>
-    </html>`;
 
 const addMoreEmployees = () => {
 	inquirer
@@ -126,17 +98,9 @@ const addMoreEmployees = () => {
 						console.log(err);
 					});
 			}
-
-			const createHTML = () => {
-				const htmlContent = generateHTML(employees);
-
-				fs.writeFile("./dist/index.html", htmlContent, (err) =>
-					err
-						? console.log(err)
-						: console.log("Successfully created index.html!")
-				);
-			};
-			createHTML();
+			
+			generateHTML.createHTML();
+			generateEmployeeCard.generateEmployeeCard(employees);
 		})
 		.catch((err) => {});
 };
